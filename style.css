@@ -2418,3 +2418,65 @@ body.admin-mode #adminOrdersPanel {
   display: block !important;
   min-height: 100vh;
 }
+
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.account-btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    background: #e8f5e9;
+    color: #086747;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.account-btn:hover {
+    background: #086747;
+    color: white;
+}
+
+.account-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 190px;
+    padding: 7px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px #0002;
+}
+
+.account-menu[hidden] {
+    display: none !important;
+}
+
+.account-menu button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #164e3b;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.account-menu button:hover {
+    background: #e8f5e9;
+}
+
+.account-menu .account-logout {
+    margin-top: 5px;
+    border-top: 1px solid #eee;
+    color: #d64545;
+}

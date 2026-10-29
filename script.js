@@ -1084,39 +1084,77 @@ authForm.addEventListener("submit", function(event) {
 
 // Add Logout button to existing navbar
 
+
 function showLogoutButton() {
-
     const headerActions = document.querySelector(".header-actions");
+    if (!headerActions) return;
 
-    if (!headerActions || document.getElementById("logoutBtn")) {
-        return;
-    }
+    // Remove previously created account buttons
+    document.getElementById("accountDropdown")?.remove();
+    document.getElementById("profileBtn")?.remove();
+    document.getElementById("myOrdersBtn")?.remove();
+    document.getElementById("logoutBtn")?.remove();
 
-    const logoutBtn = document.createElement("button");
+    const dropdown = document.createElement("div");
+    dropdown.id = "accountDropdown";
+    dropdown.className = "account-dropdown";
 
-    logoutBtn.id = "logoutBtn";
-    logoutBtn.className = "logout-btn";
-    logoutBtn.type = "button";
-    logoutBtn.textContent = "Logout";
+    dropdown.innerHTML = `
+        <button type="button" class="account-btn"
+                id="accountBtn" aria-expanded="false">
+            👤 My Account <span>⌄</span>
+        </button>
+        <div class="account-menu" id="accountMenu" hidden>
+            <button type="button" id="myOrdersBtn">📦 My Orders</button>
+            <button type="button" id="profileBtn">👤 My Profile</button>
+            <button type="button" id="logoutBtn" class="account-logout">🚪 Logout</button>
+        </div>
+    `;
 
-    logoutBtn.addEventListener("click", function() {
+    headerActions.appendChild(dropdown);
 
-        sessionStorage.removeItem("petParadiseDemoLogin");
+    const accountBtn = dropdown.querySelector("#accountBtn");
+    const accountMenu = dropdown.querySelector("#accountMenu");
 
-        authScreen.hidden = false;
-
-        authForm.reset();
-
-        setAuthMode("login");
-
-        logoutBtn.remove();
-
-        window.scrollTo(0, 0);
-
+    accountBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        accountMenu.hidden = !accountMenu.hidden;
+        accountBtn.setAttribute("aria-expanded", String(!accountMenu.hidden));
     });
 
-    headerActions.appendChild(logoutBtn);
+    dropdown.querySelector("#myOrdersBtn").addEventListener("click", function () {
+        accountMenu.hidden = true;
+        openOrdersModal();
+    });
+
+    dropdown.querySelector("#profileBtn").addEventListener("click", function () {
+        accountMenu.hidden = true;
+        openCustomerProfile();
+    });
+
+    dropdown.querySelector("#logoutBtn").addEventListener("click", function () {
+        sessionStorage.removeItem("petParadiseDemoLogin");
+        dropdown.remove();
+
+        authScreen.hidden = false;
+        authForm.reset();
+        setAuthMode("login");
+        window.scrollTo(0, 0);
+    });
+
+    document.addEventListener("click", function closeAccountMenu(event) {
+        if (!dropdown.isConnected) {
+            document.removeEventListener("click", closeAccountMenu);
+            return;
+        }
+
+        if (!dropdown.contains(event.target)) {
+            accountMenu.hidden = true;
+            accountBtn.setAttribute("aria-expanded", "false");
+        }
+    });
 }
+
 
 
 // Restore demo session on page refresh
