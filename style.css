@@ -2480,3 +2480,51 @@ body.admin-mode #adminOrdersPanel {
     border-top: 1px solid #eee;
     color: #d64545;
 }
+
+/* More Products button */
+.more-products-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px auto 10px;
+    width: 100%;
+}
+
+.more-products-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 30px;
+    background: #086747;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 2px solid #086747;
+    transition: all 0.25s ease;
+}
+
+.more-products-btn span {
+    font-size: 20px;
+    transition: transform 0.25s ease;
+}
+
+.more-products-btn:hover {
+    background: #ffffff;
+    color: #086747;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(8, 103, 71, 0.15);
+}
+
+.more-products-btn:hover span {
+    transform: translateX(5px);
+}
+
+@media (max-width: 600px) {
+    .more-products-btn {
+        width: 90%;
+        padding: 13px 20px;
+    }
+}

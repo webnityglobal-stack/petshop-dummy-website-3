@@ -1102,7 +1102,7 @@ function showLogoutButton() {
     dropdown.innerHTML = `
         <button type="button" class="account-btn"
                 id="accountBtn" aria-expanded="false">
-            👤 My Account <span>⌄</span>
+            👤 My Account 
         </button>
         <div class="account-menu" id="accountMenu" hidden>
             <button type="button" id="myOrdersBtn">📦 My Orders</button>
